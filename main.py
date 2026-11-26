@@ -8,6 +8,12 @@ import os
 
 ENTRY = "Keep the Rp 5.000 on Friday — the noodles are gone by midnight, but the bus home is the last dinner you'll ever eat at your mother's table."
 
+# The sealed gate accepts 1 to 200 characters of UTF-8 text, not only
+# whitespace. Refuse to write anything outside it instead of shipping
+# an entry the gate would score 0.
+if not 1 <= len(ENTRY) <= 200 or not ENTRY.strip():
+    raise ValueError("entry must be 1 to 200 non-blank characters")
+
 OUTPUT_PATH = os.environ.get("ENTRY_OUTPUT", "/output/entry.txt")
 
 
